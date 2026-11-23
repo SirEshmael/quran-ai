@@ -4,7 +4,7 @@ const surahSelect = document.getElementById("surahSelect");
 
 async function loadSurahList() {
     try {
-        const response = await fetch(${API}/surah);
+        const response = await fetch(API + "/surah");
 
         if (!response.ok) {
             throw new Error("Unable to connect.");
