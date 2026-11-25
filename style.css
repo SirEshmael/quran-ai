@@ -440,3 +440,31 @@ footer small {
     padding: 25px 15px;
     border-bottom: 1px solid #d8ded9;
 }
+.ayah-arabic {
+    color: #102d24 !important;
+    font-size: 36px !important;
+    font-weight: bold;
+    line-height: 2.2;
+    text-align: right;
+    direction: rtl;
+    font-family: serif;
+    margin-bottom: 20px;
+    opacity: 1 !important;
+}
+
+.ayah-translation {
+    color: #263b32 !important;
+    font-size: 18px !important;
+    font-weight: 500;
+    line-height: 1.8;
+    text-align: left;
+    opacity: 1 !important;
+}
+
+.ayah-card {
+    background: #ffffff !important;
+    padding: 25px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #d8ded9;
+    opacity: 1 !important;
+}
