@@ -570,3 +570,174 @@ hifzSurahSelect.addEventListener(
 
 loadSurahList();
 loadHifzSurahList();
+// =====================================
+// AI RECITATION PRACTICE
+// =====================================
+
+const recitationSurah = document.getElementById("recitationSurah");
+const recitationAyah = document.getElementById("recitationAyah");
+const recitationArabic = document.getElementById("recitationArabic");
+const recitationTranslation = document.getElementById("recitationTranslation");
+const recitationTranscript = document.getElementById("recitationTranscript");
+const recitationFeedback = document.getElementById("recitationFeedback");
+const startRecitationBtn = document.getElementById("startRecitationBtn");
+const stopRecitationBtn = document.getElementById("stopRecitationBtn");
+
+let recitationRecognition = null;
+let targetArabicAyah = "";
+let recognisedText = "";
+
+
+// Load Surah list
+async function loadRecitationSurahList() {
+    try {
+        const response = await fetch(`${API}/surah`);
+        const result = await response.json();
+
+        recitationSurah.innerHTML = "";
+
+        result.data.forEach(surah => {
+            const option = document.createElement("option");
+            option.value = surah.number;
+            option.textContent =
+                `${surah.number}. ${surah.englishName} — ${surah.name}`;
+
+            recitationSurah.appendChild(option);
+        });
+
+    } catch (error) {
+        recitationSurah.innerHTML =
+            '<option value="">Unable to load Surahs</option>';
+    }
+}
+
+
+// Load selected Ayah
+async function loadRecitationAyah() {
+    const surahNumber = recitationSurah.value;
+    const ayahNumber = Number(recitationAyah.value);
+
+    if (!surahNumber || !ayahNumber || ayahNumber < 1) {
+        alert("Please select a Surah and enter a valid Ayah number.");
+        return;
+    }
+
+    try {
+        recitationArabic.textContent = "Loading...";
+        recitationTranslation.textContent = "";
+
+        const [arabicResponse, englishResponse] = await Promise.all([
+            fetch(`${API}/surah/${surahNumber}/quran-uthmani`),
+            fetch(`${API}/surah/${surahNumber}/en.sahih`)
+        ]);
+
+        const arabicResult = await arabicResponse.json();
+        const englishResult = await englishResponse.json();
+
+        const arabicAyahs = arabicResult.data.ayahs;
+        const englishAyahs = englishResult.data.ayahs;
+
+        if (ayahNumber > arabicAyahs.length) {
+            alert("This Ayah number does not exist in the selected Surah.");
+            return;
+        }
+
+        targetArabicAyah = arabicAyahs[ayahNumber - 1].text;
+
+        recitationArabic.textContent = targetArabicAyah;
+        recitationTranslation.textContent =
+            englishAyahs[ayahNumber - 1].text;
+
+        recitationTranscript.textContent =
+            "Your recognised words will appear here.";
+
+        recitationFeedback.textContent =
+            "Press Start Recitation when you are ready.";
+
+    } catch (error) {
+        recitationArabic.textContent = "Unable to load this Ayah.";
+        console.error(error);
+    }
+}
+
+
+// Start microphone recognition
+function startRecitation() {
+    const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+        recitationFeedback.textContent =
+            "Speech recognition is not supported in this browser. Try Chrome on your Chromebook.";
+        return;
+    }
+
+    if (!targetArabicAyah) {
+        recitationFeedback.textContent =
+            "Please load an Ayah before starting.";
+        return;
+    }
+
+    recitationRecognition = new SpeechRecognition();
+
+    recitationRecognition.lang = "ar-SA";
+    recitationRecognition.continuous = true;
+    recitationRecognition.interimResults = true;
+
+    recognisedText = "";
+
+    recitationRecognition.onstart = function () {
+        startRecitationBtn.disabled = true;
+        stopRecitationBtn.disabled = false;
+
+        recitationFeedback.textContent =
+            "Listening... Recite the displayed Ayah.";
+    };
+
+    recitationRecognition.onresult = function (event) {
+        let currentText = "";
+
+        for (let i = 0; i < event.results.length; i++) {
+            currentText += event.results[i][0].transcript + " ";
+        }
+
+        recognisedText = currentText.trim();
+
+        recitationTranscript.textContent =
+            recognisedText || "Listening...";
+    };
+
+    recitationRecognition.onerror = function (event) {
+        recitationFeedback.textContent =
+            "Microphone recognition error: " + event.error;
+    };
+
+    recitationRecognition.onend = function () {
+        startRecitationBtn.disabled = false;
+        stopRecitationBtn.disabled = true;
+
+        if (recognisedText) {
+            recitationFeedback.textContent =
+                "Recitation captured. Compare the recognised words with the displayed Ayah. Speech recognition can make mistakes and does not assess Tajweed.";
+        }
+    };
+
+    try {
+        recitationRecognition.start();
+    } catch (error) {
+        recitationFeedback.textContent =
+            "Could not start the microphone. Please try again.";
+    }
+}
+
+
+// Stop microphone
+function stopRecitation() {
+    if (recitationRecognition) {
+        recitationRecognition.stop();
+    }
+}
+
+
+// Initialise
+loadRecitationSurahList();
