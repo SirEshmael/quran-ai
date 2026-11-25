@@ -211,7 +211,58 @@
 
         </section>
 
+<section class="hifz-section" id="hifz">
 
+    <span>QURAN AI HIFZ ACADEMY</span>
+
+    <h2>Memorise the Noble Qur'an</h2>
+
+    <p>Practise one ayah at a time and build your memorisation.</p>
+
+    <div class="hifz-container">
+
+        <label for="hifzSurah">Choose Surah</label>
+
+        <select id="hifzSurah">
+            <option value="">Loading Surahs...</option>
+        </select>
+
+        <div class="hifz-progress">
+            <p id="hifzCounter">Select a Surah to begin.</p>
+            <p id="hifzStatus">Your progress will appear here.</p>
+        </div>
+
+        <div class="hifz-ayah-card">
+
+            <p id="hifzArabic" class="hifz-arabic">
+                اختر سورة للبدء
+            </p>
+
+            <p id="hifzTranslation" class="hifz-translation">
+                Select a Surah to start memorising.
+            </p>
+
+            <button id="revealBtn" onclick="revealHifzAyah()">
+                Reveal Ayah
+            </button>
+
+        </div>
+
+        <div class="hifz-buttons">
+
+            <button onclick="previousHifzAyah()">← Previous</button>
+
+            <button onclick="nextHifzAyah()">Next →</button>
+
+        </div>
+
+        <button id="memorizedBtn" onclick="markHifzMemorized()">
+            ✓ Mark as Memorised
+        </button>
+
+    </div>
+
+</section>
     </main>
 
 
