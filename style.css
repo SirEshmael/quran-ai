@@ -468,3 +468,26 @@ footer small {
     border-bottom: 1px solid #d8ded9;
     opacity: 1 !important;
 }
+@import url('https://fonts.googleapis.com/css2?family=Amiri+Quran&display=swap');
+
+.ayah-arabic {
+    font-family: 'Amiri Quran', serif !important;
+    font-size: 32px !important;
+    font-weight: normal;
+    line-height: 2.4;
+    direction: rtl;
+    unicode-bidi: plaintext;
+    text-align: center;
+    color: #102d24 !important;
+    letter-spacing: normal;
+    word-break: normal;
+    overflow-wrap: normal;
+    opacity: 1 !important;
+}
+
+.ayah-translation {
+    font-size: 18px;
+    line-height: 1.9;
+    color: #263b32 !important;
+    text-align: left;
+}
