@@ -500,3 +500,50 @@ footer small {
     color: #b18a3b;
     margin: 0 8px;
 }
+.ayah-arabic {
+    font-family: "Noto Naskh Arabic", serif !important;
+    font-size: 34px !important;
+    font-weight: 600;
+    line-height: 2.3 !important;
+    direction: rtl;
+    text-align: center;
+    unicode-bidi: plaintext;
+    word-spacing: 3px;
+    letter-spacing: 0 !important;
+    color: #123c2d;
+    font-feature-settings: "liga" 1, "kern" 1;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+.bismillah {
+    font-family: "Noto Naskh Arabic", serif !important;
+    font-size: 38px !important;
+    font-weight: 700;
+    line-height: 2.2 !important;
+    text-align: center;
+    direction: rtl;
+    color: #123c2d;
+    margin: 25px 0 40px;
+}
+
+.ayah-card {
+    padding: 25px 18px;
+    margin-bottom: 25px;
+}
+
+.ayah-number {
+    color: #b18b3d;
+    font-size: 22px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.ayah-translation {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    line-height: 1.9;
+    color: #26352e;
+    text-align: left;
+    margin-top: 25px;
+}
