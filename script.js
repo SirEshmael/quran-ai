@@ -91,19 +91,7 @@ async function loadSurah() {
         // Display Bismillah separately,
         // except in Al-Fatiha and At-Tawbah.
 
-        if (number !== "1" && number !== "9") {
-
-            const bismillahElement =
-                document.createElement("p");
-
-            bismillahElement.className = "ayah-arabic";
-
-            bismillahElement.style.textAlign = "center";
-
-            bismillahElement.textContent = bismillah;
-
-            quranText.appendChild(bismillahElement);
-        }
+        
 
         arabic.ayahs.forEach(function(ayah, index) {
 
@@ -121,14 +109,7 @@ async function loadSurah() {
             // Keep Bismillah as part of Al-Fatiha.
             // Do not add it to At-Tawbah.
 
-            if (index === 0 &&
-                number !== "1" &&
-                number !== "9" &&
-                verseText.startsWith(bismillah)) {
-
-                verseText =
-                    verseText.substring(bismillah.length).trim();
-            }
+            
 
             arabicVerse.textContent =
                 verseText + " ۞ " + ayah.numberInSurah;
