@@ -491,3 +491,12 @@ footer small {
     color: #263b32 !important;
     text-align: left;
 }
+.ayah-number {
+    display: inline-block;
+    font-family: serif;
+    font-size: 20px;
+    direction: ltr;
+    unicode-bidi: isolate;
+    color: #b18a3b;
+    margin: 0 8px;
+}
