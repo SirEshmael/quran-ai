@@ -87,21 +87,7 @@ async function loadSurah() {
             const card = document.createElement("div");
             card.className = "ayah-card";
 
-            const arabicVerse = document.createElement("p");
-            arabicVerse.className = "ayah-arabic";
-
-            arabicVerse.textContent =
-                ayah.text + " ۞ " + ayah.numberInSurah;
-
-            const translation = document.createElement("p");
-            translation.className = "ayah-translation";
-
-            translation.textContent = english.ayahs[index].text;
-
-            card.appendChild(arabicVerse);
-            card.appendChild(translation);
-
-            quranText.appendChild(card);
+           
 
         });
 
@@ -115,7 +101,31 @@ async function loadSurah() {
             "Unable to load Surah. Please try again.";
 
         console.error(error);
+    }const arabicVerse = document.createElement("p");
+arabicVerse.className = "ayah-arabic";
+
+const bismillah = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
+let verseText = ayah.text;
+
+if (index === 0 && number !== "1" && number !== "9") {
+    if (verseText.startsWith(bismillah)) {
+        verseText = verseText.substring(bismillah.length).trim();
     }
+}
+
+arabicVerse.textContent =
+    verseText + " ۞ " + ayah.numberInSurah;
+
+const translation = document.createElement("p");
+translation.className = "ayah-translation";
+
+translation.textContent = english.ayahs[index].text;
+
+card.appendChild(arabicVerse);
+card.appendChild(translation);
+
+quranText.appendChild(card);
+
 }
 
 
