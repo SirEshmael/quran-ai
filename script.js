@@ -32,7 +32,7 @@ async function loadSurahList() {
         surahSelect.innerHTML =
             '<option value="">Could not load Surahs</option>';
 
-        console.error(error);
+        console.error("Surah list error:", error);
     }
 }
 
@@ -84,17 +84,6 @@ async function loadSurah() {
             "<small>" + arabic.numberOfAyahs + " Ayahs</small>";
 
         quranText.innerHTML = "";
-        const bismillah = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
-
-if (number !== "1" && number !== "9") {
-    const bismillahElement = document.createElement("p");
-
-    bismillahElement.className = "ayah-arabic bismillah";
-    bismillahElement.style.textAlign = "center";
-    bismillahElement.textContent = bismillah;
-
-    quranText.appendChild(bismillahElement);
-}
 
         const bismillah =
             "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
@@ -102,7 +91,19 @@ if (number !== "1" && number !== "9") {
         // Display Bismillah separately,
         // except in Al-Fatiha and At-Tawbah.
 
-        
+        if (number !== "1" && number !== "9") {
+
+            const bismillahElement = document.createElement("p");
+
+            bismillahElement.className =
+                "ayah-arabic bismillah";
+
+            bismillahElement.style.textAlign = "center";
+
+            bismillahElement.textContent = bismillah;
+
+            quranText.appendChild(bismillahElement);
+        }
 
         arabic.ayahs.forEach(function(ayah, index) {
 
@@ -110,34 +111,49 @@ if (number !== "1" && number !== "9") {
 
             card.className = "ayah-card";
 
-            const arabicVerse =
-                document.createElement("p");
+            const arabicVerse = document.createElement("p");
 
             arabicVerse.className = "ayah-arabic";
 
             let verseText = ayah.text;
 
-if (index === 0 && number !== "1" && number !== "9") {
-    if (verseText.startsWith(bismillah)) {
-        verseText = verseText.substring(bismillah.length).trim();
-    }
-}
+            // Remove Bismillah from the beginning of the first
+            // verse in other Surahs, but preserve Al-Fatiha.
 
-            // Keep Bismillah as part of Al-Fatiha.
-            // Do not add it to At-Tawbah.
+            if (index === 0 && number !== "1" && number !== "9") {
 
-            
+                const normalizedVerse = verseText
+                    .replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, "")
+                    .replace(/[ٱأإآ]/g, "ا")
+                    .trim();
 
-            
-arabicVerse.textContent = verseText;
+                const normalizedBismillah = bismillah
+                    .replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, "")
+                    .replace(/[ٱأإآ]/g, "ا")
+                    .trim();
 
-const ayahNumber = document.createElement("span");
-ayahNumber.className = "ayah-number";
-ayahNumber.textContent = " ۞ " + ayah.numberInSurah;
+                if (normalizedVerse.startsWith(normalizedBismillah)) {
 
-arabicVerse.appendChild(ayahNumber);
-            const translation =
-                document.createElement("p");
+                    verseText = verseText
+                        .trim()
+                        .split(/\s+/)
+                        .slice(4)
+                        .join(" ");
+                }
+            }
+
+            arabicVerse.textContent = verseText;
+
+            const ayahNumber = document.createElement("span");
+
+            ayahNumber.className = "ayah-number";
+
+            ayahNumber.textContent =
+                " ۞ " + ayah.numberInSurah;
+
+            arabicVerse.appendChild(ayahNumber);
+
+            const translation = document.createElement("p");
 
             translation.className = "ayah-translation";
 
