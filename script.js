@@ -111,9 +111,14 @@ async function loadSurah() {
 
             
 
-            arabicVerse.textContent =
-                verseText + " ۞ " + ayah.numberInSurah;
+            
+arabicVerse.textContent = verseText;
 
+const ayahNumber = document.createElement("span");
+ayahNumber.className = "ayah-number";
+ayahNumber.textContent = " ۞ " + ayah.numberInSurah;
+
+arabicVerse.appendChild(ayahNumber);
             const translation =
                 document.createElement("p");
 
