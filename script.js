@@ -15,7 +15,7 @@ async function loadSurahList() {
         surahSelect.innerHTML =
             '<option value="">Select a Surah</option>';
 
-        result.data.forEach(surah => {
+        result.data.forEach(function(surah) {
             const option = document.createElement("option");
 
             option.value = surah.number;
@@ -71,7 +71,10 @@ async function loadSurah() {
         const arabic = arabicData.data;
         const english = englishData.data;
 
-        if (arabic.ayahs.length !== english.ayahs.length) {
+        if (!arabic || !english ||
+            !arabic.ayahs || !english.ayahs ||
+            arabic.ayahs.length !== english.ayahs.length) {
+
             throw new Error("Verse data does not match.");
         }
 
@@ -82,12 +85,67 @@ async function loadSurah() {
 
         quranText.innerHTML = "";
 
-        arabic.ayahs.forEach((ayah, index) => {
+        const bismillah =
+            "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
+
+        // Display Bismillah separately,
+        // except in Al-Fatiha and At-Tawbah.
+
+        if (number !== "1" && number !== "9") {
+
+            const bismillahElement =
+                document.createElement("p");
+
+            bismillahElement.className = "ayah-arabic";
+
+            bismillahElement.style.textAlign = "center";
+
+            bismillahElement.textContent = bismillah;
+
+            quranText.appendChild(bismillahElement);
+        }
+
+        arabic.ayahs.forEach(function(ayah, index) {
 
             const card = document.createElement("div");
+
             card.className = "ayah-card";
 
-           
+            const arabicVerse =
+                document.createElement("p");
+
+            arabicVerse.className = "ayah-arabic";
+
+            let verseText = ayah.text;
+
+            // Keep Bismillah as part of Al-Fatiha.
+            // Do not add it to At-Tawbah.
+
+            if (index === 0 &&
+                number !== "1" &&
+                number !== "9" &&
+                verseText.startsWith(bismillah)) {
+
+                verseText =
+                    verseText.substring(bismillah.length).trim();
+            }
+
+            arabicVerse.textContent =
+                verseText + " ۞ " + ayah.numberInSurah;
+
+            const translation =
+                document.createElement("p");
+
+            translation.className = "ayah-translation";
+
+            translation.textContent =
+                english.ayahs[index].text;
+
+            card.appendChild(arabicVerse);
+
+            card.appendChild(translation);
+
+            quranText.appendChild(card);
 
         });
 
@@ -100,32 +158,8 @@ async function loadSurah() {
         quranText.textContent =
             "Unable to load Surah. Please try again.";
 
-        console.error(error);
-    }const arabicVerse = document.createElement("p");
-arabicVerse.className = "ayah-arabic";
-
-const bismillah = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
-let verseText = ayah.text;
-
-if (index === 0 && number !== "1" && number !== "9") {
-    if (verseText.startsWith(bismillah)) {
-        verseText = verseText.substring(bismillah.length).trim();
+        console.error("Quran error:", error);
     }
-}
-
-arabicVerse.textContent =
-    verseText + " ۞ " + ayah.numberInSurah;
-
-const translation = document.createElement("p");
-translation.className = "ayah-translation";
-
-translation.textContent = english.ayahs[index].text;
-
-card.appendChild(arabicVerse);
-card.appendChild(translation);
-
-quranText.appendChild(card);
-
 }
 
 
