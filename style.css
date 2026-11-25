@@ -1,327 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    background: #071c19;
-    color: white;
-}
-
-:root {
-    --green: #0c3029;
-    --gold: #d9b66c;
-    --light: #f2eee4;
-}
-
-.navbar {
-    height: 85px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 8%;
-    background: #071c19;
-    border-bottom: 1px solid #244239;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 23px;
-    font-weight: 800;
-}
-
-.logo-icon {
-    color: var(--gold);
-    font-size: 30px;
-}
-
-.highlight {
-    color: var(--gold);
-}
-
-nav {
-    display: flex;
-    gap: 35px;
-}
-
-nav a {
-    color: #d2ded8;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-nav a:hover {
-    color: var(--gold);
-}
-
-button {
-    cursor: pointer;
-    font-family: inherit;
-}
-
-.start-btn {
-    background: var(--gold);
-    color: #10251e;
-    border: none;
-    padding: 13px 23px;
-    border-radius: 6px;
-    font-weight: 700;
-}
-
-.hero {
-    min-height: 570px;
-    padding: 85px 10%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 50px;
-    background: linear-gradient(120deg, #071c19, #103b30);
-}
-
-.hero-content {
-    max-width: 600px;
-}
-
-.welcome,
-.section-heading span,
-.quran-section > span {
-    color: var(--gold);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2px;
-}
-
-.hero h1 {
-    font-size: clamp(38px, 5vw, 62px);
-    line-height: 1.15;
-    margin: 25px 0;
-}
-
-.hero h1 span {
-    color: var(--gold);
-}
-
-.hero-content p {
-    color: #c4d2ca;
-    line-height: 1.9;
-    max-width: 520px;
-    font-size: 15px;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 15px;
-    margin-top: 35px;
-    flex-wrap: wrap;
-}
-
-.primary-btn,
-.secondary-btn {
-    padding: 15px 25px;
-    border-radius: 6px;
-    font-weight: 700;
-}
-
-.primary-btn {
-    background: var(--gold);
-    color: #10251e;
-    border: none;
-}
-
-.secondary-btn {
-    background: transparent;
-    color: white;
-    border: 1px solid #8d9f94;
-}
-
-.hero-art {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.quran-circle {
-    width: 300px;
-    height: 300px;
-    border: 2px solid var(--gold);
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    outline: 12px solid #d9b66c15;
-    background: #174337;
-}
-
-.moon {
-    color: var(--gold);
-    font-size: 55px;
-}
-
-.arabic {
-    font-family: 'Amiri', serif;
-    font-size: 36px;
-    margin: 15px 0;
-}
-
-.quran-circle p {
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--gold);
-}
-
-.decoration {
-    color: var(--gold);
-    margin-top: 20px;
-}
-
-.features {
-    padding: 90px 9%;
-    background: #f2eee4;
-    color: #15332a;
-}
-
-.section-heading {
-    text-align: center;
-    margin-bottom: 55px;
-}
-
-.section-heading h2 {
-    font-size: 35px;
-    margin: 15px 0;
-}
-
-.section-heading p {
-    color: #64756b;
-}
-
-.feature-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-}
-
-.feature-card {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    border: 1px solid #e5e5dc;
-    transition: 0.3s;
-}
-
-.feature-card:hover {
-    transform: translateY(-7px);
-    box-shadow: 0 12px 30px #00000012;
-}
-
-.feature-icon {
-    font-size: 35px;
-    margin-bottom: 20px;
-}
-
-.feature-card h3 {
-    margin-bottom: 12px;
-    font-size: 18px;
-}
-
-.feature-card p {
-    color: #69776e;
-    line-height: 1.7;
-    font-size: 14px;
-    min-height: 70px;
-}
-
-.coming {
-    display: inline-block;
-    margin-top: 18px;
-    color: #98732d;
-    font-size: 11px;
-    font-weight: 700;
-}
-
-.quran-section {
-    padding: 85px 10%;
-    text-align: center;
-    background: #103b30;
-}
-
-.quran-section h2 {
-    font-size: 38px;
-    margin: 20px 0;
-}
-
-.quran-section p {
-    color: #c4d2ca;
-    margin-bottom: 30px;
-    line-height: 1.8;
-}
-
-footer {
-    background: #071c19;
-    padding: 45px 10%;
-    text-align: center;
-}
-
-footer .logo {
-    justify-content: center;
-}
-
-footer p {
-    color: #aebfb5;
-    margin: 15px 0;
-}
-
-footer small {
-    color: #71857a;
-}
-
-@media (max-width: 800px) {
-
-    .navbar {
-        padding: 0 5%;
-    }
-
-    nav {
-        display: none;
-    }
-
-    .hero {
-        flex-direction: column;
-        text-align: center;
-        padding: 65px 7%;
-    }
-
-    .hero-content p {
-        margin: auto;
-    }
-
-    .hero-buttons {
-        justify-content: center;
-    }
-
-    .quran-circle {
-        width: 250px;
-        height: 250px;
-    }
-
-    .feature-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .section-heading h2 {
-        font-size: 27px;
-    }
-}
-/* QURAN READER */
-
 .quran-reader {
     max-width: 900px;
     margin: 45px auto 0;
@@ -343,10 +19,11 @@ footer small {
 }
 
 .reader-controls select {
+    width: 100%;
     padding: 15px;
     border: 1px solid #d5d5ca;
     border-radius: 7px;
-    font-size: 15px;
+    font-size: 16px;
     background: white;
 }
 
@@ -354,43 +31,82 @@ footer small {
     margin: 25px 0;
     font-size: 20px;
     font-weight: 700;
+    text-align: center;
+}
+
+#surahInfo h3 {
+    font-family: 'Amiri Quran', serif;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+#surahInfo p {
+    color: #64756b;
+    margin-bottom: 20px;
+}
+
+#quranText {
+    text-align: left;
+    background: #ffffff;
 }
 
 .ayah-card {
-    padding: 25px 10px;
-    border-bottom: 1px solid #e5e5dc;
+    background: #ffffff;
+    padding: 25px 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #d8ded9;
 }
 
 .ayah-arabic {
-    font-family: 'Amiri', serif;
-    font-size: 30px;
+    font-family: 'Amiri Quran', serif;
+    font-size: clamp(30px, 7vw, 40px);
+    font-weight: normal;
     line-height: 2.2;
-    text-align: right;
     direction: rtl;
-    color: #153b30;
-    margin-bottom: 15px;
-}
-
-.ayah-translation {
-    color: #64756b;
-    line-height: 1.9;
-    text-align: left;
-    font-size: 14px;
+    unicode-bidi: plaintext;
+    text-align: center;
+    color: #123c2d;
+    letter-spacing: normal;
+    word-spacing: normal;
+    word-break: normal;
+    overflow-wrap: normal;
+    margin: 0;
+    padding: 10px 0;
 }
 
 .ayah-number {
-    color: #98732d;
+    display: inline-block;
+    font-family: serif;
+    font-size: 21px;
     font-weight: 700;
+    color: #b18b3d;
+    white-space: nowrap;
+    margin: 0 7px;
+}
+
+.bismillah {
+    font-family: 'Amiri Quran', serif;
+    font-size: clamp(34px, 8vw, 42px);
+    line-height: 2.2;
+    direction: rtl;
+    text-align: center;
+    color: #123c2d;
+    margin: 25px 0 40px;
+}
+
+.ayah-translation {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    line-height: 1.9;
+    color: #26352e;
+    text-align: left;
+    margin-top: 25px;
 }
 
 .quran-source {
     display: block;
     margin-top: 25px;
     color: #64756b;
-}
-
-#quranText {
-    text-align: left;
 }
 
 #quranText .loading {
@@ -406,175 +122,19 @@ footer small {
 @media (max-width: 600px) {
 
     .quran-reader {
-        padding: 18px;
+        padding: 18px 12px;
+    }
+
+    .ayah-card {
+        padding: 20px 8px;
     }
 
     .ayah-arabic {
-        font-size: 25px;
+        font-size: 32px;
+        line-height: 2.1;
     }
 
-}
-/* QURAN READER TEXT VISIBILITY FIX */
-
-.ayah-arabic {
-    font-family: 'Amiri', serif;
-    font-size: 34px;
-    line-height: 2.3;
-    text-align: right;
-    direction: rtl;
-    color: #102d24 !important;
-    font-weight: 600;
-    margin-bottom: 18px;
-}
-
-.ayah-translation {
-    color: #263b32 !important;
-    font-size: 17px;
-    line-height: 2;
-    text-align: left;
-    font-weight: 500;
-}
-
-.ayah-card {
-    background: #ffffff;
-    padding: 25px 15px;
-    border-bottom: 1px solid #d8ded9;
-}
-.ayah-arabic {
-    color: #102d24 !important;
-    font-size: 36px !important;
-    font-weight: bold;
-    line-height: 2.2;
-    text-align: right;
-    direction: rtl;
-    font-family: serif;
-    margin-bottom: 20px;
-    opacity: 1 !important;
-}
-
-.ayah-translation {
-    color: #263b32 !important;
-    font-size: 18px !important;
-    font-weight: 500;
-    line-height: 1.8;
-    text-align: left;
-    opacity: 1 !important;
-}
-
-.ayah-card {
-    background: #ffffff !important;
-    padding: 25px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #d8ded9;
-    opacity: 1 !important;
-}
-@import url('https://fonts.googleapis.com/css2?family=Amiri+Quran&display=swap');
-
-.ayah-arabic {
-    font-family: 'Amiri Quran', serif !important;
-    font-size: 32px !important;
-    font-weight: normal;
-    line-height: 2.4;
-    direction: rtl;
-    unicode-bidi: plaintext;
-    text-align: center;
-    color: #102d24 !important;
-    letter-spacing: normal;
-    word-break: normal;
-    overflow-wrap: normal;
-    opacity: 1 !important;
-}
-
-.ayah-translation {
-    font-size: 18px;
-    line-height: 1.9;
-    color: #263b32 !important;
-    text-align: left;
-}
-.ayah-number {
-    display: inline-block;
-    font-family: serif;
-    font-size: 20px;
-    direction: ltr;
-    unicode-bidi: isolate;
-    color: #b18a3b;
-    margin: 0 8px;
-}
-.ayah-arabic {
-    font-family: "Noto Naskh Arabic", serif !important;
-    font-size: 34px !important;
-    font-weight: 600;
-    line-height: 2.3 !important;
-    direction: rtl;
-    text-align: center;
-    unicode-bidi: plaintext;
-    word-spacing: 3px;
-    letter-spacing: 0 !important;
-    color: #123c2d;
-    font-feature-settings: "liga" 1, "kern" 1;
-    overflow-wrap: normal;
-    word-break: normal;
-}
-
-.bismillah {
-    font-family: "Noto Naskh Arabic", serif !important;
-    font-size: 38px !important;
-    font-weight: 700;
-    line-height: 2.2 !important;
-    text-align: center;
-    direction: rtl;
-    color: #123c2d;
-    margin: 25px 0 40px;
-}
-
-.ayah-card {
-    padding: 25px 18px;
-    margin-bottom: 25px;
-}
-
-.ayah-number {
-    color: #b18b3d;
-    font-size: 22px;
-    font-weight: 700;
-    white-space: nowrap;
-}
-
-.ayah-translation {
-    font-family: Arial, sans-serif;
-    font-size: 18px;
-    line-height: 1.9;
-    color: #26352e;
-    text-align: left;
-    margin-top: 25px;
-}
-.ayah-arabic {
-    font-family: "Noto Naskh Arabic", serif !important;
-    font-size: clamp(29px, 7vw, 36px) !important;
-    font-weight: 600;
-    line-height: 1.85 !important;
-    text-align: center;
-    direction: rtl;
-    word-spacing: 2px;
-    letter-spacing: 0;
-    margin: 0 !important;
-    padding: 12px 0;
-    color: #123c2d;
-}
-
-.ayah-card {
-    padding: 15px 12px !important;
-    margin-bottom: 18px !important;
-}
-
-.ayah-number {
-    display: inline-block;
-    white-space: nowrap;
-    font-size: 21px;
-    margin: 0 5px;
-}
-
-.ayah-translation {
-    margin-top: 20px !important;
-    line-height: 1.8 !important;
-    font-size: 18px;
+    .ayah-translation {
+        font-size: 17px;
+    }
 }
