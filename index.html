@@ -1,285 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>QURAN AI | Your Companion in the Journey of the Qur'an</title>
+
+    <title>QURAN AI | Your Islamic Companion</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700;800&family=Amiri+Quran&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <header class="navbar">
+<header class="navbar">
 
-        <div class="logo">
-            <span class="logo-icon">☪</span>
-            <span>QURAN<span class="highlight">AI</span></span>
+    <div class="logo">
+        <span class="logo-icon">☪</span>
+        <span>QURAN<span class="highlight">AI</span></span>
+    </div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#quran">The Qur'an</a>
+        <a href="#about">About</a>
+    </nav>
+
+    <button class="start-btn" onclick="startLearning()">
+        Get Started
+    </button>
+
+</header>
+
+
+<main>
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <span class="welcome">YOUR PERSONAL ISLAMIC AI COMPANION</span>
+
+            <h1>
+                Your Journey With The
+                <span>Holy Qur'an</span>
+                Starts Here.
+            </h1>
+
+            <p>
+                Learn, memorise, revise and explore the Qur'an
+                with an intelligent companion designed to
+                support your Islamic journey.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="primary-btn" onclick="startLearning()">
+                    Start Your Journey →
+                </button>
+
+                <button class="secondary-btn" onclick="exploreQuran()">
+                    Explore Qur'an
+                </button>
+
+            </div>
+
         </div>
 
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#features">Features</a>
-            <a href="#quran">The Qur'an</a>
-            <a href="#about">About</a>
-        </nav>
+        <div class="hero-art">
 
-        <button class="start-btn" onclick="startLearning()">
-            Get Started
+            <div class="quran-circle">
+
+                <div class="moon">☪</div>
+
+                <div class="arabic">
+                    الْقُرْآنُ الْكَرِيمُ
+                </div>
+
+                <p>THE NOBLE QUR'AN</p>
+
+                <div class="decoration">✦ ✧ ✦</div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="features" id="features">
+
+        <div class="section-heading">
+
+            <span>DISCOVER QURAN AI</span>
+
+            <h2>Everything You Need For Your Journey</h2>
+
+            <p>Your learning, memorisation and Islamic knowledge in one place.</p>
+
+        </div>
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                <div class="feature-icon">🎙️</div>
+                <h3>AI Voice Companion</h3>
+                <p>Have natural conversations with your personal Islamic AI assistant.</p>
+                <span class="coming">Coming Soon</span>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📖</div>
+                <h3>Complete Qur'an</h3>
+                <p>Explore all 114 Surahs and access Qur'anic text.</p>
+                <span class="coming">Available Now</span>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>Hifz Academy</h3>
+                <p>Memorise the Qur'an with guided practice and revision.</p>
+                <span class="coming">In Development</span>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <h3>Revision Mode</h3>
+                <p>Test your memorisation and strengthen what you've learned.</p>
+                <span class="coming">Coming Soon</span>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🕌</div>
+                <h3>Islamic Knowledge</h3>
+                <p>Explore Islamic teachings using reliable sources and references.</p>
+                <span class="coming">Coming Soon</span>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🌍</div>
+                <h3>Arabic Learning</h3>
+                <p>Improve your Arabic vocabulary and Qur'anic understanding.</p>
+                <span class="coming">Coming Soon</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="quran-section" id="quran">
+
+        <span>THE NOBLE QUR'AN</span>
+
+        <h2>Explore the Holy Qur'an</h2>
+
+        <p>Read, reflect and connect with the words of Allah.</p>
+
+        <div class="quran-reader">
+
+            <div class="reader-controls">
+
+                <label for="surahSelect">Choose a Surah</label>
+
+                <select id="surahSelect">
+                    <option value="">Loading Surahs...</option>
+                </select>
+
+                <button class="primary-btn" onclick="loadSurah()">
+                    Open Surah
+                </button>
+
+            </div>
+
+            <div id="surahInfo"></div>
+
+            <div id="quranText">
+                <p>Select a Surah to begin reading.</p>
+            </div>
+
+            <small class="quran-source">
+                Qur'an text provided by AlQuran Cloud.
+            </small>
+
+        </div>
+
+    </section>
+
+
+    <section class="connection-section">
+
+        <span>THE HEART OF OUR PLATFORM</span>
+
+        <h2>Connect With The Qur'an</h2>
+
+        <p>
+            A journey of knowledge, reflection,
+            memorisation and spiritual growth.
+        </p>
+
+        <button class="primary-btn" onclick="exploreQuran()">
+            Explore The Qur'an →
         </button>
 
-    </header>
+    </section>
 
 
-    <main>
+    <section class="hifz-section" id="hifz">
 
-        <section class="hero" id="home">
+        <span>QURAN AI HIFZ ACADEMY</span>
 
-            <div class="hero-content">
+        <h2>Memorise the Noble Qur'an</h2>
 
-                <span class="welcome">YOUR PERSONAL ISLAMIC AI COMPANION</span>
+        <p>Practise one ayah at a time and build your memorisation.</p>
 
-                <h1>
-                    Your Journey With The
-                    <span>Holy Qur'an</span>
-                    Starts Here.
-                </h1>
+        <div class="hifz-container">
 
-                <p>
-                    Learn, memorise, revise and explore the Qur'an
-                    with an intelligent companion designed to
-                    support your Islamic journey.
-                </p>
+            <label for="hifzSurah">Choose Surah</label>
 
-                <div class="hero-buttons">
-
-                    <button class="primary-btn" onclick="startLearning()">
-                        Start Your Journey →
-                    </button>
-
-                    <button class="secondary-btn" onclick="exploreQuran()">
-                        Explore Qur'an
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <div class="hero-art">
-
-                <div class="quran-circle">
-
-                    <div class="moon">☪</div>
-
-                    <div class="arabic">
-                        الْقُرْآنُ الْكَرِيمُ
-                    </div>
-
-                    <p>THE NOBLE QUR'AN</p>
-
-                    <div class="decoration">✦ ✧ ✦</div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section class="features" id="features">
-
-            <div class="section-heading">
-                <span>DISCOVER QURAN AI</span>
-                <h2>Everything You Need For Your Journey</h2>
-                <p>Your learning, memorisation and Islamic knowledge in one place.</p>
-            </div>
-
-
-            <div class="feature-grid">
-
-                <div class="feature-card">
-                    <div class="feature-icon">🎙️</div>
-                    <h3>AI Voice Companion</h3>
-                    <p>Have natural conversations with your personal Islamic AI assistant.</p>
-                    <span class="coming">Coming Soon</span>
-                </div>
-
-
-                <div class="feature-card">
-                    <div class="feature-icon">📖</div>
-                    <h3>Complete Qur'an</h3>
-                    <p>Explore all 114 Surahs and access verified Qur'anic text.</p>
-                    <span class="coming">Coming Soon</span>
-                </div>
-
-
-                <div class="feature-card">
-                    <div class="feature-icon">🧠</div>
-                    <h3>Hifz Academy</h3>
-                    <p>Memorise the Qur'an with guided practice and revision.</p>
-                    <span class="coming">Coming Soon</span>
-                </div>
-
-
-                <div class="feature-card">
-                    <div class="feature-icon">🔄</div>
-                    <h3>Revision Mode</h3>
-                    <p>Test your memorisation and strengthen what you've learned.</p>
-                    <span class="coming">Coming Soon</span>
-                </div>
-
-
-                <div class="feature-card">
-                    <div class="feature-icon">🕌</div>
-                    <h3>Islamic Knowledge</h3>
-                    <p>Explore Islamic teachings using reliable sources and references.</p>
-                    <span class="coming">Coming Soon</span>
-                </div>
-
-
-                <div class="feature-card">
-                    <div class="feature-icon">🌍</div>
-                    <h3>Arabic Learning</h3>
-                    <p>Improve your Arabic vocabulary and Qur'anic understanding.</p>
-                    <span class="coming">Coming Soon</span>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section class="quran-section" id="quran">
-
-    <span>THE NOBLE QUR'AN</span>
-
-    <h2>Explore the Holy Qur'an</h2>
-
-    <p>Read, reflect and connect with the words of Allah.</p>
-
-    <div class="quran-reader">
-
-        <div class="reader-controls">
-
-            <label for="surahSelect">Choose a Surah</label>
-
-            <select id="surahSelect">
+            <select id="hifzSurah">
                 <option value="">Loading Surahs...</option>
             </select>
 
-            <button class="primary-btn" onclick="loadSurah()">
-                Open Surah
+            <div class="hifz-progress">
+                <p id="hifzCounter">Select a Surah to begin.</p>
+                <p id="hifzStatus">Your progress will appear here.</p>
+            </div>
+
+            <div class="hifz-ayah-card">
+
+                <p id="hifzArabic" class="hifz-arabic">
+                    اختر سورة للبدء
+                </p>
+
+                <p id="hifzTranslation" class="hifz-translation">
+                    Select a Surah to start memorising.
+                </p>
+
+                <button id="revealBtn" onclick="revealHifzAyah()">
+                    Reveal Ayah
+                </button>
+
+            </div>
+
+            <div class="hifz-buttons">
+
+                <button onclick="previousHifzAyah()">← Previous</button>
+
+                <button onclick="nextHifzAyah()">Next →</button>
+
+            </div>
+
+            <button id="memorizedBtn" onclick="markHifzMemorized()">
+                ✓ Mark as Memorised
             </button>
 
         </div>
 
-        <div id="surahInfo"></div>
+    </section>
 
-        <div id="quranText">
+</main>
 
-            <p>Select a Surah to begin reading.</p>
 
-        </div>
+<footer id="about">
 
-        <small class="quran-source">
-            Qur'an text provided by AlQuran Cloud.
-        </small>
-
+    <div class="logo">
+        ☪ QURAN<span class="highlight">AI</span>
     </div>
 
-</section>
+    <p>Your Companion in the Journey of the Qur'an.</p>
+
+    <small>© 2026 QURAN AI. Built with purpose.</small>
+
+</footer>
 
 
-            <span>THE HEART OF OUR PLATFORM</span>
-
-            <h2>Connect With The Qur'an</h2>
-
-            <p>
-                A journey of knowledge, reflection,
-                memorisation and spiritual growth.
-            </p>
-
-            <button class="primary-btn" onclick="exploreQuran()">
-                Explore The Qur'an →
-            </button>
-
-        </section>
-
-<section class="hifz-section" id="hifz">
-
-    <span>QURAN AI HIFZ ACADEMY</span>
-
-    <h2>Memorise the Noble Qur'an</h2>
-
-    <p>Practise one ayah at a time and build your memorisation.</p>
-
-    <div class="hifz-container">
-
-        <label for="hifzSurah">Choose Surah</label>
-
-        <select id="hifzSurah">
-            <option value="">Loading Surahs...</option>
-        </select>
-
-        <div class="hifz-progress">
-            <p id="hifzCounter">Select a Surah to begin.</p>
-            <p id="hifzStatus">Your progress will appear here.</p>
-        </div>
-
-        <div class="hifz-ayah-card">
-
-            <p id="hifzArabic" class="hifz-arabic">
-                اختر سورة للبدء
-            </p>
-
-            <p id="hifzTranslation" class="hifz-translation">
-                Select a Surah to start memorising.
-            </p>
-
-            <button id="revealBtn" onclick="revealHifzAyah()">
-                Reveal Ayah
-            </button>
-
-        </div>
-
-        <div class="hifz-buttons">
-
-            <button onclick="previousHifzAyah()">← Previous</button>
-
-            <button onclick="nextHifzAyah()">Next →</button>
-
-        </div>
-
-        <button id="memorizedBtn" onclick="markHifzMemorized()">
-            ✓ Mark as Memorised
-        </button>
-
-    </div>
-
-</section>
-    </main>
-
-
-    <footer id="about">
-
-        <div class="logo">
-            ☪ QURAN<span class="highlight">AI</span>
-        </div>
-
-        <p>Your Companion in the Journey of the Qur'an.</p>
-
-        <small>© 2026 QURAN AI. Built with purpose.</small>
-
-    </footer>
-
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
