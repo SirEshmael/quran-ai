@@ -84,6 +84,17 @@ async function loadSurah() {
             "<small>" + arabic.numberOfAyahs + " Ayahs</small>";
 
         quranText.innerHTML = "";
+        const bismillah = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
+
+if (number !== "1" && number !== "9") {
+    const bismillahElement = document.createElement("p");
+
+    bismillahElement.className = "ayah-arabic bismillah";
+    bismillahElement.style.textAlign = "center";
+    bismillahElement.textContent = bismillah;
+
+    quranText.appendChild(bismillahElement);
+}
 
         const bismillah =
             "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
