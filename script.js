@@ -117,6 +117,12 @@ if (number !== "1" && number !== "9") {
 
             let verseText = ayah.text;
 
+if (index === 0 && number !== "1" && number !== "9") {
+    if (verseText.startsWith(bismillah)) {
+        verseText = verseText.substring(bismillah.length).trim();
+    }
+}
+
             // Keep Bismillah as part of Al-Fatiha.
             // Do not add it to At-Tawbah.
 
