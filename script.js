@@ -2,6 +2,11 @@ const API = "https://api.alquran.cloud/v1";
 
 const surahSelect = document.getElementById("surahSelect");
 
+
+// =====================================
+// QURAN READER
+// =====================================
+
 async function loadSurahList() {
     try {
         const response = await fetch(API + "/surah");
@@ -88,9 +93,6 @@ async function loadSurah() {
         const bismillah =
             "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
 
-        // Display Bismillah separately,
-        // except in Al-Fatiha and At-Tawbah.
-
         if (number !== "1" && number !== "9") {
 
             const bismillahElement = document.createElement("p");
@@ -116,9 +118,6 @@ async function loadSurah() {
             arabicVerse.className = "ayah-arabic";
 
             let verseText = ayah.text;
-
-            // Remove Bismillah from the beginning of the first
-            // verse in other Surahs, but preserve Al-Fatiha.
 
             if (index === 0 && number !== "1" && number !== "9") {
 
@@ -161,7 +160,6 @@ async function loadSurah() {
                 english.ayahs[index].text;
 
             card.appendChild(arabicVerse);
-
             card.appendChild(translation);
 
             quranText.appendChild(card);
@@ -196,4 +194,342 @@ async function exploreQuran() {
 }
 
 
+// =====================================
+// HIFZ ACADEMY
+// =====================================
+
+const hifzSurahSelect =
+    document.getElementById("hifzSurah");
+
+const hifzArabic =
+    document.getElementById("hifzArabic");
+
+const hifzTranslation =
+    document.getElementById("hifzTranslation");
+
+const hifzCounter =
+    document.getElementById("hifzCounter");
+
+const hifzStatus =
+    document.getElementById("hifzStatus");
+
+const revealBtn =
+    document.getElementById("revealBtn");
+
+const memorizedBtn =
+    document.getElementById("memorizedBtn");
+
+
+let hifzAyahs = [];
+let currentHifzAyah = 0;
+let isHifzRevealed = true;
+let currentHifzSurah = null;
+
+
+// Load all Surahs into Hifz dropdown
+
+async function loadHifzSurahList() {
+
+    try {
+
+        const response = await fetch(API + "/surah");
+
+        if (!response.ok) {
+            throw new Error("Unable to load Surahs.");
+        }
+
+        const result = await response.json();
+
+        hifzSurahSelect.innerHTML =
+            '<option value="">Select a Surah</option>';
+
+        result.data.forEach(function(surah) {
+
+            const option = document.createElement("option");
+
+            option.value = surah.number;
+
+            option.textContent =
+                surah.number + ". " +
+                surah.englishName + " — " +
+                surah.name;
+
+            hifzSurahSelect.appendChild(option);
+
+        });
+
+    } catch (error) {
+
+        hifzSurahSelect.innerHTML =
+            '<option value="">Could not load Surahs</option>';
+
+        console.error("Hifz Surah error:", error);
+    }
+}
+
+
+// Load selected Surah for memorisation
+
+async function loadHifzSurah() {
+
+    const number = hifzSurahSelect.value;
+
+    if (!number) {
+        return;
+    }
+
+    hifzArabic.textContent = "Loading...";
+    hifzTranslation.textContent = "Please wait...";
+    hifzCounter.textContent = "Loading ayahs...";
+
+    try {
+
+        const arabicResponse = await fetch(
+            API + "/surah/" + number + "/quran-uthmani"
+        );
+
+        const englishResponse = await fetch(
+            API + "/surah/" + number + "/en.sahih"
+        );
+
+        if (!arabicResponse.ok || !englishResponse.ok) {
+            throw new Error("Unable to load selected Surah.");
+        }
+
+        const arabicData = await arabicResponse.json();
+        const englishData = await englishResponse.json();
+
+        if (
+            !arabicData.data ||
+            !englishData.data ||
+            arabicData.data.ayahs.length !==
+            englishData.data.ayahs.length
+        ) {
+            throw new Error("Ayah data does not match.");
+        }
+
+        currentHifzSurah = number;
+
+        hifzAyahs = arabicData.data.ayahs.map(
+            function(ayah, index) {
+
+                return {
+                    arabic: ayah.text,
+                    translation: englishData.data.ayahs[index].text,
+                    number: ayah.numberInSurah
+                };
+
+            }
+        );
+
+        currentHifzAyah = 0;
+
+        showHifzAyah();
+
+    } catch (error) {
+
+        hifzArabic.textContent =
+            "Unable to load Ayahs.";
+
+        hifzTranslation.textContent =
+            "Please try again.";
+
+        console.error("Hifz loading error:", error);
+    }
+}
+
+
+// Get saved memorisation progress
+
+function getHifzProgress() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem("quranAIHifzProgress") || "{}"
+        );
+
+    } catch (error) {
+
+        return {};
+    }
+}
+
+
+// Display current Ayah
+
+function showHifzAyah() {
+
+    if (!hifzAyahs.length) {
+        return;
+    }
+
+    const ayah = hifzAyahs[currentHifzAyah];
+
+    hifzArabic.textContent = ayah.arabic;
+
+    hifzTranslation.textContent = ayah.translation;
+
+    isHifzRevealed = true;
+
+    revealBtn.textContent = "Hide Ayah";
+
+    const progress = getHifzProgress();
+
+    const memorized =
+        progress[currentHifzSurah] || [];
+
+    hifzCounter.textContent =
+        "Ayah " + ayah.number +
+        " of " + hifzAyahs.length;
+
+    hifzStatus.textContent =
+        memorized.length + " of " +
+        hifzAyahs.length +
+        " Ayahs memorised";
+
+    if (memorized.includes(ayah.number)) {
+
+        memorizedBtn.textContent =
+            "✓ Memorised";
+
+    } else {
+
+        memorizedBtn.textContent =
+            "✓ Mark as Memorised";
+    }
+}
+
+
+// Hide or reveal current Ayah
+
+function revealHifzAyah() {
+
+    if (!hifzAyahs.length) {
+        alert("Please select a Surah first.");
+        return;
+    }
+
+    if (isHifzRevealed) {
+
+        hifzArabic.textContent = "••••••••••••••";
+
+        hifzTranslation.textContent =
+            "Try to remember this Ayah.";
+
+        revealBtn.textContent = "Reveal Ayah";
+
+        isHifzRevealed = false;
+
+    } else {
+
+        showHifzAyah();
+    }
+}
+
+
+// Go to next Ayah
+
+function nextHifzAyah() {
+
+    if (!hifzAyahs.length) {
+        alert("Please select a Surah first.");
+        return;
+    }
+
+    if (currentHifzAyah < hifzAyahs.length - 1) {
+
+        currentHifzAyah++;
+
+        showHifzAyah();
+
+    } else {
+
+        alert("You have reached the last Ayah of this Surah.");
+    }
+}
+
+
+// Go to previous Ayah
+
+function previousHifzAyah() {
+
+    if (!hifzAyahs.length) {
+        alert("Please select a Surah first.");
+        return;
+    }
+
+    if (currentHifzAyah > 0) {
+
+        currentHifzAyah--;
+
+        showHifzAyah();
+
+    } else {
+
+        alert("This is the first Ayah.");
+    }
+}
+
+
+// Mark current Ayah as memorised
+
+function markHifzMemorized() {
+
+    if (!hifzAyahs.length) {
+        alert("Please select a Surah first.");
+        return;
+    }
+
+    const progress = getHifzProgress();
+
+    if (!progress[currentHifzSurah]) {
+        progress[currentHifzSurah] = [];
+    }
+
+    const ayahNumber =
+        hifzAyahs[currentHifzAyah].number;
+
+    const memorized =
+        progress[currentHifzSurah];
+
+    const index =
+        memorized.indexOf(ayahNumber);
+
+    if (index === -1) {
+
+        memorized.push(ayahNumber);
+
+    } else {
+
+        memorized.splice(index, 1);
+    }
+
+    try {
+
+        localStorage.setItem(
+            "quranAIHifzProgress",
+            JSON.stringify(progress)
+        );
+
+    } catch (error) {
+
+        alert("Unable to save progress on this device.");
+    }
+
+    showHifzAyah();
+}
+
+
+// =====================================
+// INITIALISE WEBSITE
+// =====================================
+
+hifzSurahSelect.addEventListener(
+    "change",
+    loadHifzSurah
+);
+
 loadSurahList();
+
+loadHifzSurahList();
