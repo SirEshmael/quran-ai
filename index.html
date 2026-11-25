@@ -275,7 +275,102 @@
         </div>
 
     </section>
+<!-- =====================================
+     AI RECITATION PRACTICE
+===================================== -->
 
+<section class="recitation-section" id="recitation">
+
+    <span>QURAN AI RECITATION STUDIO</span>
+
+    <h2>Practise Your Qur'an Recitation</h2>
+
+    <p>
+        Recite an Ayah using your voice and review
+        the words recognised by your browser.
+    </p>
+
+    <div class="recitation-container">
+
+        <label for="recitationSurah">
+            Choose Surah
+        </label>
+
+        <select id="recitationSurah">
+            <option value="">Loading Surahs...</option>
+        </select>
+
+        <label for="recitationAyah">
+            Choose Ayah
+        </label>
+
+        <input
+            type="number"
+            id="recitationAyah"
+            min="1"
+            placeholder="Enter Ayah number"
+        >
+
+        <button
+            class="primary-btn"
+            onclick="loadRecitationAyah()">
+            Load Ayah
+        </button>
+
+        <div class="recitation-ayah-card">
+
+            <p id="recitationArabic" class="hifz-arabic">
+                اختر سورة وآية
+            </p>
+
+            <p id="recitationTranslation">
+                Select a Surah and Ayah to begin.
+            </p>
+
+        </div>
+
+        <div class="recitation-controls">
+
+            <button
+                id="startRecitationBtn"
+                onclick="startRecitation()">
+                🎙️ Start Recitation
+            </button>
+
+            <button
+                id="stopRecitationBtn"
+                onclick="stopRecitation()"
+                disabled>
+                Stop
+            </button>
+
+        </div>
+
+        <div class="recitation-result">
+
+            <h3>Recognised Recitation</h3>
+
+            <p id="recitationTranscript">
+                Your recognised words will appear here.
+            </p>
+
+            <h3>Practice Feedback</h3>
+
+            <p id="recitationFeedback">
+                Your feedback will appear here.
+            </p>
+
+        </div>
+
+    </div>
+
+    <small>
+        Speech recognition is experimental and may not
+        accurately recognise every Arabic word.
+        It does not evaluate Tajweed.
+    </small>
+
+</section>
 </main>
 
 
