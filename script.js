@@ -228,7 +228,87 @@ let currentHifzSurah = null;
 
 // Load all Surahs into Hifz dropdown
 
-async function loadHifzSurahList() {
+async function loadHifzSurah() {
+
+    const number = hifzSurahSelect.value;
+
+    if (!number) {
+        return;
+    }
+
+    hifzArabic.textContent = "Loading...";
+    hifzTranslation.textContent = "Please wait...";
+    hifzCounter.textContent = "Loading ayahs...";
+
+    const audioPlayer = document.getElementById("hifzAudio");
+
+    audioPlayer.pause();
+    audioPlayer.removeAttribute("src");
+
+    try {
+
+        const arabicResponse = await fetch(
+            API + "/surah/" + number + "/quran-uthmani"
+        );
+
+        const englishResponse = await fetch(
+            API + "/surah/" + number + "/en.sahih"
+        );
+
+        const audioResponse = await fetch(
+            API + "/surah/" + number + "/ar.alafasy"
+        );
+
+        if (
+            !arabicResponse.ok ||
+            !englishResponse.ok ||
+            !audioResponse.ok
+        ) {
+            throw new Error("Unable to load Surah.");
+        }
+
+        const arabicData = await arabicResponse.json();
+        const englishData = await englishResponse.json();
+        const audioData = await audioResponse.json();
+
+        const arabic = arabicData.data.ayahs;
+        const english = englishData.data.ayahs;
+        const audio = audioData.data.ayahs;
+
+        if (
+            arabic.length !== english.length ||
+            arabic.length !== audio.length
+        ) {
+            throw new Error("Ayah data does not match.");
+        }
+
+        currentHifzSurah = number;
+
+        hifzAyahs = arabic.map(function(ayah, index) {
+
+            return {
+                arabic: ayah.text,
+                translation: english[index].text,
+                audio: audio[index].audio,
+                number: ayah.numberInSurah
+            };
+
+        });
+
+        currentHifzAyah = 0;
+
+        showHifzAyah();
+
+    } catch (error) {
+
+        hifzArabic.textContent = "Unable to load Ayahs.";
+
+        hifzTranslation.textContent =
+            "Please try again.";
+
+        console.error("Hifz loading error:", error);
+    }
+}
 
     try {
 
@@ -358,7 +438,20 @@ function getHifzProgress() {
 
 // Display current Ayah
 
-function showHifzAyah() {
+
+
+// Hide or reveal current Ayah
+
+function revealHifzAyah() {
+
+    if (!hifzAyahs.length) {
+        alert("Please select a Surah first.");
+        return;
+    }
+
+    if (isHifzRevealed) {
+
+        hifzArabic.textCfunction showHifzAyah() {
 
     if (!hifzAyahs.length) {
         return;
@@ -366,9 +459,17 @@ function showHifzAyah() {
 
     const ayah = hifzAyahs[currentHifzAyah];
 
+    const audioPlayer =
+        document.getElementById("hifzAudio");
+
+    audioPlayer.pause();
+
     hifzArabic.textContent = ayah.arabic;
 
     hifzTranslation.textContent = ayah.translation;
+
+    audioPlayer.src = ayah.audio;
+    audioPlayer.load();
 
     isHifzRevealed = true;
 
@@ -388,31 +489,11 @@ function showHifzAyah() {
         hifzAyahs.length +
         " Ayahs memorised";
 
-    if (memorized.includes(ayah.number)) {
-
-        memorizedBtn.textContent =
-            "✓ Memorised";
-
-    } else {
-
-        memorizedBtn.textContent =
-            "✓ Mark as Memorised";
-    }
-}
-
-
-// Hide or reveal current Ayah
-
-function revealHifzAyah() {
-
-    if (!hifzAyahs.length) {
-        alert("Please select a Surah first.");
-        return;
-    }
-
-    if (isHifzRevealed) {
-
-        hifzArabic.textContent = "••••••••••••••";
+    memorizedBtn.textContent =
+        memorized.includes(ayah.number)
+        ? "✓ Memorised"
+        : "✓ Mark as Memorised";
+}ontent = "••••••••••••••";
 
         hifzTranslation.textContent =
             "Try to remember this Ayah.";
@@ -533,3 +614,19 @@ hifzSurahSelect.addEventListener(
 loadSurahList();
 
 loadHifzSurahList();
+function repeatHifzAudio() {
+
+    const audioPlayer =
+        document.getElementById("hifzAudio");
+
+    if (!audioPlayer.src) {
+        alert("Please select a Surah first.");
+        return;
+    }
+
+    audioPlayer.currentTime = 0;
+
+    audioPlayer.play().catch(function(error) {
+        console.error("Audio playback error:", error);
+    });
+}
