@@ -695,3 +695,27 @@ footer small {
         font-size: 28px;
     }
 }
+/* HIFZ AUDIO PLAYER */
+
+.hifz-audio-box {
+    margin-top: 25px;
+    padding: 20px;
+    background: #f7f5ed;
+    border-radius: 10px;
+}
+
+.hifz-audio-box p {
+    color: #123c2d;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.hifz-audio-box audio {
+    width: 100%;
+}
+
+#repeatAudioBtn {
+    background: #bd984e;
+    color: #123c2d;
+    margin-top: 15px;
+}
